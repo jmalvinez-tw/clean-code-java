@@ -23,7 +23,11 @@ public class CustomerTest {
 
         System.out.println(testStatement);
 
-        String expectedStatement = "Rental Record for John Do\n\tBarbarian	3.5\nAmount owed is 3.5\nYou earned 1 frequent renter points";
+        String expectedStatement = """
+                Rental Record for John Do
+                	Barbarian	3.5
+                Amount owed is 3.5
+                You earned 1 frequent renter points""";
         Assert.assertEquals(expectedStatement, testStatement);
     }
 }
