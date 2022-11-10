@@ -30,4 +30,5 @@ public class CustomerTest {
                 You earned 1 frequent renter points""";
         Assert.assertEquals(expectedStatement, testStatement);
     }
+    
 }
