@@ -16,6 +16,7 @@ public class CustomerTest {
     public void statementCharacterisationTest() {
         Movie testMovie = new Movie("Barbarian", Movie.REGULAR);
         Rental testRental = new Rental(testMovie, 3);
+
         Customer testCustomer = new Customer("John Do");
 
         testCustomer.addRental(testRental);
@@ -30,5 +31,31 @@ public class CustomerTest {
                 You earned 1 frequent renter points""";
         Assert.assertEquals(expectedStatement, testStatement);
     }
-    
+
+    @Test
+    public void htmlStatementTest() {
+        Movie testMovie1 = new Movie("Barbarian", Movie.REGULAR);
+        Rental testRental1 = new Rental(testMovie1, 3);
+
+        Movie testMovie2 = new Movie("Black Panther: Wakanda Forever", Movie.NEW_RELEASE);
+        Rental testRental2 = new Rental(testMovie2, 5);
+
+        Customer testCustomer = new Customer("John Do");
+
+        testCustomer.addRental(testRental1);
+        testCustomer.addRental(testRental2);
+        String testStatement = testCustomer.htmlStatement();
+
+        System.out.println(testStatement);
+
+        String expectedStatement = """
+                <h1>Rental Record for <strong>John Do</strong></h1>
+                
+                <p>Barbarian:	3.5</p>
+                <p>Black Panther: Wakanda Forever:	15.0</p>
+                
+                <p>Amount owed is <strong>18.5</strong></p>
+                <p>You earned <strong>3</strong> frequent renter points</p>""";
+        Assert.assertEquals(expectedStatement, testStatement);
+    }
 }

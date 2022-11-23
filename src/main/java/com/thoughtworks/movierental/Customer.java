@@ -20,24 +20,52 @@ public class Customer {
     }
 
     public String statement() {
-        double totalAmount = 0;
-        int frequentRenterPoints = 0;
-        String result = "Rental Record for " + getName() + '\n';
-        for (Rental rental : rentals) {
-            double rentalCost = rental.calculateCost();
-            frequentRenterPoints += rental.calculateFrequentRenterPoints();
+        StringBuilder result = new StringBuilder().append("Rental Record for ").append(getName()).append("\n");
 
-            //show figures for this rental
-            result += "\t" + rental.getMovie().getTitle() + "\t" +
-                    rentalCost + "\n";
-            totalAmount += rentalCost;
-        }
+        result.append(getRentalFigures());
 
         //add footer lines result
-        result += "Amount owed is " + totalAmount + "\n";
-        result += "You earned " + frequentRenterPoints
-                + " frequent renter points";
-        return result;
+        result.append("Amount owed is ").append(getTotalAmount()).append("\n").append("You earned ")
+                .append(getFrequentRenterPoints()).append(" frequent renter points");
+        return result.toString();
+    }
+
+    public String htmlStatement() {
+        StringBuilder result = new StringBuilder()
+                .append("<h1>Rental Record for <strong>").append(getName()).append("</strong></h1>\n\n")
+                .append(getRentalFigures())
+                .append("\n<p>Amount owed is <strong>").append(getTotalAmount()).append("</strong></p>\n")
+                .append("<p>You earned <strong>").append(getFrequentRenterPoints()).append("</strong> frequent renter points</p>");
+
+        return result.toString();
+    }
+
+    private int getFrequentRenterPoints() {
+        int frequentRenterPoints = 0;
+
+        for (Rental rental : rentals) {
+            frequentRenterPoints += rental.calculateFrequentRenterPoints();
+        }
+        return frequentRenterPoints;
+    }
+
+    private double getTotalAmount() {
+        double totalAmount = 0;
+
+        for (Rental rental : rentals) {
+            totalAmount += rental.calculateCost();
+        }
+
+        return totalAmount;
+    }
+
+    private String getRentalFigures() {
+        StringBuilder result = new StringBuilder();
+
+        for (Rental rental : rentals) {
+            result.append("<p>").append(rental.getMovie().getTitle()).append(":\t").append(rental.calculateCost()).append("</p>\n");
+        }
+
+        return result.toString();
     }
 }
-
