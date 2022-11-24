@@ -33,7 +33,7 @@ public class Customer {
     public String htmlStatement() {
         StringBuilder result = new StringBuilder()
                 .append("<h1>Rental Record for <strong>").append(getName()).append("</strong></h1>\n\n")
-                .append(getRentalFigures())
+                .append(getHtmlRentalFigures())
                 .append("\n<p>Amount owed is <strong>").append(getTotalAmount()).append("</strong></p>\n")
                 .append("<p>You earned <strong>").append(getFrequentRenterPoints()).append("</strong> frequent renter points</p>");
 
@@ -46,6 +46,7 @@ public class Customer {
         for (Rental rental : rentals) {
             frequentRenterPoints += rental.calculateFrequentRenterPoints();
         }
+
         return frequentRenterPoints;
     }
 
@@ -60,6 +61,16 @@ public class Customer {
     }
 
     private String getRentalFigures() {
+        StringBuilder result = new StringBuilder();
+
+        for (Rental rental : rentals) {
+            result.append("\t").append(rental.getMovie().getTitle()).append("\t").append(rental.calculateCost()).append("\n");
+        }
+
+        return result.toString();
+    }
+
+    private String getHtmlRentalFigures() {
         StringBuilder result = new StringBuilder();
 
         for (Rental rental : rentals) {
