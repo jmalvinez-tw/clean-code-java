@@ -20,13 +20,12 @@ public class Customer {
     }
 
     public String statement() {
-        StringBuilder result = new StringBuilder().append("Rental Record for ").append(getName()).append("\n");
-
-        result.append(getRentalFigures());
-
-        //add footer lines result
-        result.append("Amount owed is ").append(getTotalAmount()).append("\n").append("You earned ")
+        StringBuilder result = new StringBuilder()
+                .append("Rental Record for ").append(getName()).append("\n")
+                .append(getRentalFigures())
+                .append("Amount owed is ").append(getTotalAmount()).append("\n").append("You earned ")
                 .append(getFrequentRenterPoints()).append(" frequent renter points");
+
         return result.toString();
     }
 
