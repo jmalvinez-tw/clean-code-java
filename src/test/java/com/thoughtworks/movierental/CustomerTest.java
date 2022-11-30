@@ -14,12 +14,24 @@ public class CustomerTest {
 
     @Test
     public void statementCharacterisationTest() {
-        Movie testMovie = new Movie("Barbarian", Movie.REGULAR);
-        Rental testRental = new Rental(testMovie, 3);
+        Movie testRegularMovie = new Movie("Barbarian", Category.REGULAR);
+        Rental testRegularMovieRental = new Rental(testRegularMovie, 3);
+
+        Movie testNewReleaseMovie = new Movie("Black Panther: Wakanda Forever", Category.NEW_RELEASE);
+        Rental testNewReleaseMovieRental = new Rental(testNewReleaseMovie, 5);
+
+        Movie testChildrenMovie = new Movie("Stand By Me Doraemon", Category.CHILDRENS);
+        Rental testChildrenMovieRental = new Rental(testChildrenMovie, 4);
+
+        Movie testBlurayMovie = new Movie("Iron Man", Category.BLURAY);
+        Rental testBlurayMovieRental = new Rental(testBlurayMovie, 2);
 
         Customer testCustomer = new Customer("John Do");
 
-        testCustomer.addRental(testRental);
+        testCustomer.addRental(testRegularMovieRental);
+        testCustomer.addRental(testNewReleaseMovieRental);
+        testCustomer.addRental(testChildrenMovieRental);
+        testCustomer.addRental(testBlurayMovieRental);
         String testStatement = testCustomer.statement();
 
         System.out.println(testStatement);
@@ -27,23 +39,34 @@ public class CustomerTest {
         String expectedStatement = """
                 Rental Record for John Do
                 	Barbarian	3.5
-                Amount owed is 3.5
-                You earned 1 frequent renter points""";
+                	Black Panther: Wakanda Forever	15.0
+                	Stand By Me Doraemon	3.0
+                	Iron Man	8.0
+                Amount owed is 29.5
+                You earned 7 frequent renter points""";
         Assert.assertEquals(expectedStatement, testStatement);
     }
 
     @Test
     public void htmlStatementTest() {
-        Movie testMovie1 = new Movie("Barbarian", Movie.REGULAR);
-        Rental testRental1 = new Rental(testMovie1, 3);
+        Movie testRegularMovie = new Movie("Barbarian", Category.REGULAR);
+        Rental testRegularMovieRental = new Rental(testRegularMovie, 3);
 
-        Movie testMovie2 = new Movie("Black Panther: Wakanda Forever", Movie.NEW_RELEASE);
-        Rental testRental2 = new Rental(testMovie2, 5);
+        Movie testNewReleaseMovie = new Movie("Black Panther: Wakanda Forever", Category.NEW_RELEASE);
+        Rental testNewReleaseMovieRental = new Rental(testNewReleaseMovie, 5);
+
+        Movie testChildrenMovie = new Movie("Stand By Me Doraemon", Category.CHILDRENS);
+        Rental testChildrenMovieRental = new Rental(testChildrenMovie, 4);
+
+        Movie testBlurayMovie = new Movie("Iron Man", Category.BLURAY);
+        Rental testBlurayMovieRental = new Rental(testBlurayMovie, 2);
 
         Customer testCustomer = new Customer("John Do");
 
-        testCustomer.addRental(testRental1);
-        testCustomer.addRental(testRental2);
+        testCustomer.addRental(testRegularMovieRental);
+        testCustomer.addRental(testNewReleaseMovieRental);
+        testCustomer.addRental(testChildrenMovieRental);
+        testCustomer.addRental(testBlurayMovieRental);
         String testStatement = testCustomer.htmlStatement();
 
         System.out.println(testStatement);
@@ -53,9 +76,11 @@ public class CustomerTest {
                 
                 <p>Barbarian:	3.5</p>
                 <p>Black Panther: Wakanda Forever:	15.0</p>
+                <p>Stand By Me Doraemon:	3.0</p>
+                <p>Iron Man:	8.0</p>
                 
-                <p>Amount owed is <strong>18.5</strong></p>
-                <p>You earned <strong>3</strong> frequent renter points</p>""";
+                <p>Amount owed is <strong>29.5</strong></p>
+                <p>You earned <strong>7</strong> frequent renter points</p>""";
         Assert.assertEquals(expectedStatement, testStatement);
     }
 }
